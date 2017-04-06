@@ -10,20 +10,29 @@
 A full description is available at the site where the data was obtained:http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
 Here are the data for the project:https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip  
 
-# R script for this analysis is called "run_analysis.R" that does the following:
-1.  Merges the training and the test sets to create one data set.
-2.  Extracts only the measurements on the mean and standard deviation for each measurement. 
-3.  Uses descriptive activity names to name the activities in the data set
-4.  Appropriately labels the data set with descriptive variable names. From
-5.  The data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+# Repository Contents
+1.  run_analysis.R: R code that does the following:
+  - Merges the training and the test sets to create one data set.
+  - Extracts only the measurements on the mean and standard deviation for each measurement. 
+  - Uses descriptive activity names to name the activities in the data set
+  - Appropriately labels the data set with descriptive variable names. 
+  - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-#  Overview of Analysis
-- Read source tables for training, test, and reference data.
-  - 'features.txt': List of all features.
-  - 'activity_labels.txt': Links the class labels with their activity name.
-  - 'train/X_train.txt': Training set.
-  - 'train/y_train.txt': Training labels.
-  - 'test/X_test.txt': Test set.
-  - 'test/y_test.txt': Test labels.
-  - 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
--  Merge test data to add acti
+2.  README.md:  overview of analysis and repository contents
+3.  CodeBook.md:  description of two resultant data sets
+
+# Analysis Overview
+1.  Merge training/test sets:
+    -Training data and reference are merged using cbind function.  Activity descriptions and descriptive field names added here.
+    -Test data and reference are merged using cbind function.  Activity descriptions and descriptive field names added here.
+    -Resulting Training and Test data are combined using rbind
+    -This interim file has duplicate column names but these are dropped when creating the first data set.
+2.  Mean/Standard Deviation Data set: output 1
+    -Metrics with description of mean or standard deviation are retained (86 metrics)
+    -Note that field names may have "Mean" or "mean".
+    -There are 89 variables total of which 3 are dimensions (subject, activity, activity_label).
+3.  Average of variables from output 1:  output 2
+    -All metrics (which were mean or standard deviations), are averaged for each subject and activity:
+        -Factors created according to combination of subject and activity (40 factors total)
+        -3 dimensions (subject, activity, and activity_label)
+        -86 metrics:  average of mean/stdev measurements
